@@ -5,34 +5,12 @@ export default class Reddit extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      post1: [],
-      post2: [],
-      post3: [],
-      post4: [],
-      post5: [],
-      post6: [],
-      post7: [],
-      post8: [],
-      post9: [],
-      post10: [],
       post: [],
     };
   }
 
   componentDidMount() {
     axios.get('https://www.reddit.com/hot/.json').then(res => {
-      // this.setState({
-      //   post1: res.data.data.children[0].data,
-      //   post2: res.data.data.children[1].data,
-      //   post3: res.data.data.children[2].data,
-      //   post4: res.data.data.children[3].data,
-      //   post5: res.data.data.children[4].data,
-      //   post6: res.data.data.children[5].data,
-      //   post7: res.data.data.children[6].data,
-      //   post8: res.data.data.children[7].data,
-      //   post9: res.data.data.children[8].data,
-      //   post10: res.data.data.children[9].data,
-
       for (var i = 0; i < 9; i++) {
         this.setState({
           post: res.data.data.children[i].data,
@@ -50,7 +28,6 @@ export default class Reddit extends Component {
           </div>
 
           <div className="body-api">
-            <div>{this.listHot}</div>
             {/* <div className="post post1">
               <p>{this.state.post1.title}</p>
               <img src={this.state.post1.thumbnail} alt="post1" />
