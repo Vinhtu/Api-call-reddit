@@ -13,15 +13,11 @@ export default class Reddit extends Component {
     try {
       axios.get('https://www.reddit.com/hot/.json').then(res => {
         var arr = [];
-        for (var i = 0; i < 9; i++) {
-          this.setState({
-            post: res.data.data.children[i].data,
-          });
-          arr.push(this.state.post.title);
-        }
-        document.write(arr);
-        console.log(res.data);
-        console.log(arr);
+
+        this.setState({
+          post: res.data.data.children,
+        });
+        // arr.push(this.state.post.title);
       });
     } catch (e) {
       console.log(e.massage);
@@ -35,13 +31,19 @@ export default class Reddit extends Component {
           <div className="name">
             <p>Call API from reddit </p>
           </div>
-          <div className="body-api">
-            <div className="post post10">
-              <p>{this.state.post.title}</p>
-              <img src={this.state.post.thumbnail} alt="post" />
-              url:<p className="url-color">{this.state.post.url}</p>
-            </div>
-          </div>
+          {this.state.post.map((p, idx) => {
+            console.log(p, 'p');
+            const { data } = p;
+            return (
+              <div className="body-api">
+                <div className="post post10">
+                  <p>{data.title}</p>
+                  <img src={data.thumbnail} alt="post" />
+                  url:<p className="url-color">{data.url}</p>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     );
