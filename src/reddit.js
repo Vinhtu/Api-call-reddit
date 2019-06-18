@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import './App.css';
-import moment from 'moment';
+
 export default class Reddit extends Component {
   constructor(props) {
     super(props);
@@ -17,6 +17,7 @@ export default class Reddit extends Component {
           post: res.data.data.children.slice(0, 10),
         });
         console.log(res.data.data.children.slice(0, 10), 'array 8 ele');
+        console.log(res.data);
       });
     } catch (e) {
       console.log(e.massage);
