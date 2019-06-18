@@ -1,7 +1,7 @@
-import axios from 'axios';
-import React, { Component } from 'react';
-import './App.css';
-import moment from 'moment';
+import axios from "axios";
+import React, { Component } from "react";
+import "./App.css";
+import moment from "moment";
 export default class Reddit extends Component {
   constructor(props) {
     super(props);
@@ -12,11 +12,11 @@ export default class Reddit extends Component {
 
   componentDidMount() {
     try {
-      axios.get('https://www.reddit.com/hot/.json').then(res => {
+      axios.get("https://www.reddit.com/hot/.json").then((res) => {
         this.setState({
           post: res.data.data.children.slice(0, 10),
         });
-        console.log(res.data.data.children.slice(0, 10), 'array 8 ele');
+        console.log(res.data.data.children.slice(0, 10), "array 8 ele");
       });
     } catch (e) {
       console.log(e.massage);
@@ -30,7 +30,6 @@ export default class Reddit extends Component {
           <div className="name">
             <p>Call API from reddit </p>
           </div>
-
           {this.state.post.map((p, idx) => {
             // console.log(p, 'p');
             const { data } = p;
@@ -41,7 +40,7 @@ export default class Reddit extends Component {
             // console.log(myDate.toGMTString() + '---' + myDate.toLocaleString());
 
             var date = moment.unix(data.created);
-            console.log(date.format('ddd MMMM Do YYYY, h:mm:ss a'));
+            console.log(date.format("ddd MMMM Do YYYY, h:mm:ss a"));
 
             return (
               <div className="body-api">
@@ -49,10 +48,10 @@ export default class Reddit extends Component {
                   <p>{data.title}</p>
                   <p id="date">
                     {/* {myDate.toGMTString() + '---' + myDate.toLocaleString()} */}
-                    {date.format('ddd MMMM Do YYYY, h:mm:ss a')}
+                    {date.format("ddd MMMM Do YYYY, h:mm:ss a")}
                   </p>
                   <img src={data.thumbnail} alt="post" />
-                  url:<p className="url-color">{data.url}</p>
+                  <p className="url-color">url: {data.url}</p>
                 </div>
               </div>
             );
