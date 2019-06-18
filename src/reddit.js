@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import './App.css';
-
+import moment from 'moment';
 export default class Reddit extends Component {
   constructor(props) {
     super(props);
@@ -17,7 +17,6 @@ export default class Reddit extends Component {
           post: res.data.data.children.slice(0, 10),
         });
         console.log(res.data.data.children.slice(0, 10), 'array 8 ele');
-        console.log(res.data);
       });
     } catch (e) {
       console.log(e.massage);
@@ -37,15 +36,20 @@ export default class Reddit extends Component {
             const { data } = p;
 
             //chuyễn đỗi kỷ nguyên thành ngày có thể đọc được
-            var myDate = new Date(data.created * 1000);
-            console.log(myDate.toGMTString() + '---' + myDate.toLocaleString());
+
+            // var myDate = new Date(data.created * 1000);
+            // console.log(myDate.toGMTString() + '---' + myDate.toLocaleString());
+
+            var date = moment.unix(data.created);
+            console.log(date.format('ddd MMMM Do YYYY, h:mm:ss a'));
 
             return (
               <div className="body-api">
                 <div className="post post10">
                   <p>{data.title}</p>
                   <p id="date">
-                    {myDate.toGMTString() + '---' + myDate.toLocaleString()}
+                    {/* {myDate.toGMTString() + '---' + myDate.toLocaleString()} */}
+                    {date.format('ddd MMMM Do YYYY, h:mm:ss a')}
                   </p>
                   <img src={data.thumbnail} alt="post" />
                   url:<p className="url-color">{data.url}</p>
