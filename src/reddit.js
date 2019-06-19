@@ -8,10 +8,14 @@ export default class Reddit extends Component {
     this.state = {
       post: [],
       postcomment: [],
-      comment: [],
+      comment: false,
     };
   }
-
+  comment = () => {
+    this.setState({
+      comment: !this.state.comment,
+    });
+  };
   componentDidMount() {
     try {
       axios.get('https://www.reddit.com/hot/.json').then(res => {
@@ -42,61 +46,77 @@ export default class Reddit extends Component {
   }
 
   render() {
-    return (
-      <div className="section">
-        <div className="body">
-          <div className="header">
-            <p>Call API from reddit </p>
-          </div>
-          {this.state.post.map((p, idx) => {
-            // console.log(post);
+    if (!this.state.comment) {
+      return (
+        <div className="section">
+          <div className="body">
+            <div className="header">
+              <p>Call API from reddit </p>
+            </div>
+            {this.state.post.map((p, idx) => {
+              // console.log(post);
 
-            const { data } = p;
+              const { data } = p;
 
-            //chuyễn đỗi kỷ nguyên thành ngày có thể đọc được cách 1 không cần dùng thư viện moment
+              //chuyễn đỗi kỷ nguyên thành ngày có thể đọc được cách 1 không cần dùng thư viện moment
 
-            // var myDate = new Date(data.created * 1000);
-            // console.log(myDate.toGMTString() + '---' + myDate.toLocaleString());
+              // var myDate = new Date(data.created * 1000);
+              // console.log(myDate.toGMTString() + '---' + myDate.toLocaleString());
 
-            //cách này thì sử dụng thư viện moment
-            var date = moment.unix(data.created);
-            // console.log(date.format('ddd MMMM Do YYYY, h:mm:ss a'));
+              //cách này thì sử dụng thư viện moment
+              var date = moment.unix(data.created);
+              // console.log(date.format('ddd MMMM Do YYYY, h:mm:ss a'));
 
-            //truy cập vào url comment
+              //lấy url của post
 
-            return (
-              <div className="body-api">
-                <div className="post">
-                  <p>{data.title}</p>
+              //truy cập vào url comment
 
-                  <p>
-                    {/* {myDate.toGMTString() + '---' + myDate.toLocaleString()} */}
-                    {date.format('ddd MMMM Do YYYY, h:mm:ss a')}
-                  </p>
+              return (
+                <div className="body-api">
+                  <div className="post">
+                    <p>{data.title}</p>
 
-                  <img src={data.thumbnail} alt="img" />
+                    <p>
+                      {/* {myDate.toGMTString() + '---' + myDate.toLocaleString()} */}
+                      {date.format('ddd MMMM Do YYYY, h:mm:ss a')}
+                    </p>
 
-                  <p className="url-color">url: {data.url}</p>
+                    <img src={data.thumbnail} alt="img" />
 
-                  <p>Number comment: {data.num_comments}</p>
+                    <p className="url-color">
+                      <a href="#">
+                        {' '}
+                        url: https://www.reddit.com{data.permalink}
+                      </a>
+                    </p>
 
-                  <p>Comment:</p>
-                  {/* lấy comment của bài viết */}
-                  {this.state.postcomment.map((comment, ev) => {
-                    // console.log(post);
-                    return (
-                      <div>
-                        <p />
-                        <div>-{comment.data.body}</div>
-                      </div>
-                    );
-                  })}
+                    <p>Number comment: {data.num_comments}</p>
+
+                    <button onClick={this.comment}>Comment</button>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
-      </div>
-    );
+      );
+    } else
+      return (
+        <div className="section">
+          <div className="body">
+            <button onClick={this.comment}>Back</button>
+            {/* lấy comment của bài viết */}
+            {this.state.postcomment.map((comment, ev) => {
+              // console.log(post);
+              return (
+                <div>
+                  <p />
+                  <div className="font-comment">-{comment.data.body}</div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      );
   }
 }

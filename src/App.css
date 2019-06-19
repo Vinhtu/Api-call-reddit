@@ -131,3 +131,7 @@ img {
 .url-color {
   color: #17d069;
 }
+
+.font-comment {
+  font-size: 12px !important;
+}
