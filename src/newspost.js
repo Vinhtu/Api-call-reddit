@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import './App.css';
 import moment from 'moment';
-export default class Reddit extends Component {
+export default class Newspost extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -41,6 +41,7 @@ export default class Reddit extends Component {
   }
 
   render() {
+    console.log(this.props);
     return (
       <div className="section">
         <div className="body">
