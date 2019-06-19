@@ -43,9 +43,9 @@ export default class Reddit extends Component {
 
   render() {
     return (
-      <div className="main">
+      <div className="section">
         <div className="body">
-          <div className="name">
+          <div className="header">
             <p>Call API from reddit </p>
           </div>
           {this.state.post.map((p, idx) => {
@@ -66,28 +66,28 @@ export default class Reddit extends Component {
 
             return (
               <div className="body-api">
-                <div className="post post10">
+                <div className="post">
                   <p>{data.title}</p>
 
-                  <p id="date">
+                  <p>
                     {/* {myDate.toGMTString() + '---' + myDate.toLocaleString()} */}
                     {date.format('ddd MMMM Do YYYY, h:mm:ss a')}
                   </p>
 
-                  <img src={data.thumbnail} alt="post" />
+                  <img src={data.thumbnail} alt="img" />
 
                   <p className="url-color">url: {data.url}</p>
 
                   <p>Number comment: {data.num_comments}</p>
 
                   <p>Comment:</p>
-                  {/* lấy comment của post */}
-                  {this.state.postcomment.map((post, ev) => {
+                  {/* lấy comment của bài viết */}
+                  {this.state.postcomment.map((comment, ev) => {
                     // console.log(post);
                     return (
                       <div>
                         <p />
-                        <div>-{post.data.body}</div>
+                        <div>-{comment.data.body}</div>
                       </div>
                     );
                   })}
