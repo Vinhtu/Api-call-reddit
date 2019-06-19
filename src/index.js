@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import Reddit from './reddit';
+import Example from './example';
 
 ReactDOM.render(<Reddit />, document.getElementById('root'));
 
