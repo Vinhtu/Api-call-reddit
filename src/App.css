@@ -139,3 +139,6 @@ img {
 .section {
   font-size: 12px;
 }
+.url-post {
+  text-decoration: none;
+}

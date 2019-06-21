@@ -41,6 +41,7 @@ export default class PostList extends Component {
               <div className="body-api">
                 <div className="post">
                   <Link
+                    className="url-post"
                     to={{
                       pathname: '/news-post',
                       state: {

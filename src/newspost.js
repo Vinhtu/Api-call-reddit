@@ -72,11 +72,13 @@ export default class Newspost extends Component {
                       {this.props.location.state.postUrl}
                     </a>
                   </p>
-                  <p>Comment:</p>
+                  <p>Comment:{this.props.location.state.data.num_comments}</p>
                   {this.state.listComment.map((comment, ev) => {
                     return (
                       <div>
-                        <p>-{comment.data.body}</p>
+                        <ul>
+                          <li>{comment.data.body}</li>
+                        </ul>
                       </div>
                     );
                   })}
