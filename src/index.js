@@ -1,13 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-
 import * as serviceWorker from './serviceWorker';
-import Reddit from './reddit';
-import Example from './example';
-import Post from './post';
-import App from './routes/App';
-import Newspost from './newspost';
+import App from './App';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

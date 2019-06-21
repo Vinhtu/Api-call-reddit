@@ -7,7 +7,8 @@ export default class Newspost extends Component {
     super(props);
     this.state = {
       post: [],
-      postcomment: [],
+      listComment: [],
+      url: '',
     };
   }
 
@@ -17,31 +18,35 @@ export default class Newspost extends Component {
         this.setState({
           post: res.data.data.children.slice(0, 1),
         });
-        // console.log(res.data.data.children.slice(0, 1));
       });
     } catch (e) {
       console.log(e.massage);
     }
   }
   componentDidUpdate() {
-    this.state.post.map((post, ev) => {
-      // console.log(post.data.permalink);
-
-      // console.log('https://www.reddit.com' + post.data.permalink + '.json');
+    try {
       axios
-        .get('https://www.reddit.com' + post.data.permalink + '.json')
+        .get(
+          'https://www.reddit.com' +
+            this.props.location.state.data.permalink +
+            '.json'
+        )
         .then(res => {
           this.setState({
-            postcomment: res.data[1].data.children.slice(0, 10),
+            listComment: res.data[1].data.children.slice(0, 10),
+            url:
+              'https://www.reddit.com' +
+              this.props.location.state.data.permalink,
           });
-
-          // console.log(res.data[1].data.children).slice(0, 10);
+          console.log(res.data[1].data.children.slice(0, 10));
         });
-    });
+    } catch (e) {
+      console.log(e.massage);
+    }
   }
 
   render() {
-    console.log(this.props);
+    // console.log(this.props.location.state.data);
     return (
       <div className="section">
         <div className="body">
@@ -49,44 +54,29 @@ export default class Newspost extends Component {
             <p>Call API from reddit </p>
           </div>
           {this.state.post.map((p, idx) => {
-            // console.log(post);
-
-            const { data } = p;
-
-            //chuyễn đỗi kỷ nguyên thành ngày có thể đọc được cách 1 không cần dùng thư viện moment
-
-            // var myDate = new Date(data.created * 1000);
-            // console.log(myDate.toGMTString() + '---' + myDate.toLocaleString());
-
-            //cách này thì sử dụng thư viện moment
-            var date = moment.unix(data.created);
-            // console.log(date.format('ddd MMMM Do YYYY, h:mm:ss a'));
-
-            //lấy url của post
-
-            //truy cập vào url comment
+            var date = moment.unix(this.props.location.state.data.created);
 
             return (
               <div className="body-api">
                 <div className="post">
-                  <p>{data.title}</p>
-                  <p>
-                    {/* {myDate.toGMTString() + '---' + myDate.toLocaleString()} */}
-                    {date.format('ddd MMMM Do YYYY, h:mm:ss a')}
-                  </p>
-                  <img src={data.thumbnail} alt="img" />
+                  <p>{this.props.location.state.data.title}</p>
+                  <p>{date.format('ddd MMMM Do YYYY, h:mm:ss a')}</p>
+                  <img
+                    src={this.props.location.state.data.thumbnail}
+                    alt="img"
+                  />
                   <p className="url-color">
-                    <a href="#"> url: https://www.reddit.com{data.permalink}</a>
+                    <a href={this.state.url}>
+                      {' '}
+                      url: https://www.reddit.com
+                      {this.props.location.state.postUrl}
+                    </a>
                   </p>
-                  <p>Number comment: {data.num_comments}</p>
-
-                  {/* lấy comment của bài viết */}
-                  {this.state.postcomment.map((comment, ev) => {
-                    // console.log(post);
+                  <p>Comment:</p>
+                  {this.state.listComment.map((comment, ev) => {
                     return (
                       <div>
-                        <p />
-                        <div className="font-comment">-{comment.data.body}</div>
+                        <p>-{comment.data.body}</p>
                       </div>
                     );
                   })}
