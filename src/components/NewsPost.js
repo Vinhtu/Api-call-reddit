@@ -1,8 +1,9 @@
 import axios from 'axios';
 import React, { Component } from 'react';
-import './App.css';
+import '../App.css';
 import moment from 'moment';
-export default class Newspost extends Component {
+
+export default class NewsPost extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -65,7 +66,7 @@ export default class Newspost extends Component {
                     src={this.props.location.state.data.thumbnail}
                     alt="img"
                   />
-                  <p className="url-color">
+                  <p className="post-url">
                     <a href={this.state.url}>
                       {' '}
                       url: https://www.reddit.com
