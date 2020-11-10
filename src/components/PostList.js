@@ -54,7 +54,7 @@ export default class PostList extends Component {
                   >
                     {data.title}
                   </Link>
-                  <p>{date.format('ddd MMMM Do YYYY, h:mm:ss a')}</p>
+                  <p>{date.format('ddd MMMM Do YYYY, h:mm:ss add')}</p>
                 </div>
               </div>
             );
