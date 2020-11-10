@@ -14,6 +14,7 @@ class App extends Component {
       //     <Route path="/news-post" component={Newspost} />
       //   </Switch>
       // </Router>
+      
       <Post />
     );
   }

@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import appReducers from './reducers/index';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
+
 import { combineReducers } from 'redux';
 import products from './reducers/products';
 

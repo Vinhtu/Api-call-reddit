@@ -52,7 +52,7 @@ export default class NewsPost extends Component {
       <div className="section">
         <div className="body">
           <div className="header">
-            <p>Call API from reddit </p>
+            <p>Call API reddit </p>
           </div>
           {this.state.post.map((p, idx) => {
             var date = moment.unix(this.props.location.state.data.created);
